@@ -12,7 +12,8 @@ var ManageAuthors = React.createClass({
 
     getInitialState: function () {
         return {
-            author: {id: '', firstName: '', lastName: ''}
+            author: {id: '', firstName: '', lastName: ''},
+            errors: {}
         }
     },
 
@@ -28,16 +29,38 @@ var ManageAuthors = React.createClass({
 
     handleSave: function (event) {
         event.preventDefault();
+        if (!this.authorFormIsValid()) {
+            return;
+        }
         AuthorAPI.saveAuthor(this.state.author);
         toastr.success('Author saved.');
         this.context.router.push("authors");
+    },
+
+    authorFormIsValid: function () {
+        var formIsValid = true;
+        var errors = {};
+
+        if (this.state.author.firstName.length < 3) {
+            errors.firstName = 'First name must be at least 3 characters.'
+            formIsValid = false;
+        }
+
+        if (this.state.author.lastName.length < 3) {
+            errors.lastName = 'Last name must be at least 3 characters.'
+            formIsValid = false;
+        }
+
+        this.setState({errors: errors});
+        return formIsValid;
     },
 
     render: function () {
         return (
             <AuthorForm author={this.state.author}
                         onChange={this.handleChange}
-                        onSave={this.handleSave}/>
+                        onSave={this.handleSave}
+                        errors={this.state.errors}/>
         )
     }
 });
