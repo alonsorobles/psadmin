@@ -1,16 +1,16 @@
 "use strict";
 
-var gulp = require('gulp');
-var connect = require('gulp-connect');
-var open = require('gulp-open');
-var browserify = require('browserify');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
-var concat = require('gulp-concat');
-var lint = require('gulp-eslint');
+const gulp = require('gulp');
+const connect = require('gulp-connect');
+const open = require('gulp-open');
+const browserify = require('browserify');
+const reactify = require('reactify');
+const source = require('vinyl-source-stream');
+const concat = require('gulp-concat');
+const lint = require('gulp-eslint');
 
 
-var config = {
+const config = {
     port: 9005,
     devBaseUrl: 'http://localhost',
     paths: {
