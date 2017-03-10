@@ -37,12 +37,5 @@ var About = React.createClass({
     }
 });
 
-var HandleEnter = function (location, replaceWith, callback) {
-    if (!confirm('Are you sure you want to read a page that is this boring?')) {
-        replaceWith.abort();
-    } else {
-        callback();
-    }
-};
 
-module.exports = { Component: About, HandleEnter : HandleEnter} ;
+module.exports = About;
