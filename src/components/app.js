@@ -5,6 +5,9 @@ var Header = require('./common/header');
 $ = jQuery = require('jquery');
 
 var App = React.createClass({
+    propTypes: {
+        children: React.PropTypes.any
+    },
     render: function () {
         return (
             <div>
