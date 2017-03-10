@@ -7,7 +7,8 @@ var toastr = require('toastr');
 
 var ManageAuthors = React.createClass({
     propTypes: {
-        route: React.PropTypes.object.isRequired
+        route: React.PropTypes.object.isRequired,
+        params: React.PropTypes.object
     },
 
     contextTypes: {
@@ -18,7 +19,12 @@ var ManageAuthors = React.createClass({
         this.context.router.setRouteLeaveHook(
             this.props.route,
             this.routerWillLeave
-        )
+        );
+
+        var authorId = this.props.params.id;
+        if (authorId) {
+            this.setState({author: AuthorAPI.getAuthorById(authorId)});
+        }
     },
 
     routerWillLeave: function () {
