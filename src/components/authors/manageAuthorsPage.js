@@ -6,14 +6,32 @@ var AuthorAPI = require('../../api/authorApi');
 var toastr = require('toastr');
 
 var ManageAuthors = React.createClass({
+    propTypes: {
+        route: React.PropTypes.object.isRequired
+    },
+
     contextTypes: {
-        router: React.PropTypes.object
+        router: React.PropTypes.object.isRequired
+    },
+
+    componentWillMount: function(){
+        this.context.router.setRouteLeaveHook(
+            this.props.route,
+            this.routerWillLeave
+        )
+    },
+
+    routerWillLeave: function () {
+        if (this.state.isDirty) {
+            return 'Leave without saving?'
+        }
     },
 
     getInitialState: function () {
         return {
             author: {id: '', firstName: '', lastName: ''},
-            errors: {}
+            errors: {},
+            isDirty: false
         }
     },
 
@@ -24,7 +42,7 @@ var ManageAuthors = React.createClass({
 
         author[field] = value;
 
-        this.setState({author: author});
+        this.setState({author: author, isDirty: true});
     },
 
     handleSave: function (event) {
@@ -32,9 +50,11 @@ var ManageAuthors = React.createClass({
         if (!this.authorFormIsValid()) {
             return;
         }
-        AuthorAPI.saveAuthor(this.state.author);
-        toastr.success('Author saved.');
-        this.context.router.push("authors");
+        this.setState({isDirty: false}, function () {
+            AuthorAPI.saveAuthor(this.state.author);
+            toastr.success('Author saved.');
+            this.context.router.push("authors");
+        });
     },
 
     authorFormIsValid: function () {
