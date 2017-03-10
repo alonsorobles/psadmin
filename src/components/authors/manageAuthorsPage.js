@@ -3,6 +3,7 @@
 var React = require('react');
 var AuthorForm = require('./authorForm');
 var AuthorAPI = require('../../api/authorApi');
+var toastr = require('toastr');
 
 var ManageAuthors = React.createClass({
     contextTypes: {
@@ -28,6 +29,7 @@ var ManageAuthors = React.createClass({
     handleSave: function (event) {
         event.preventDefault();
         AuthorAPI.saveAuthor(this.state.author);
+        toastr.success('Author saved.');
         this.context.router.push("authors");
     },
 
