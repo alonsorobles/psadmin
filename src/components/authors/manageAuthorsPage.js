@@ -10,7 +10,7 @@ var ManageAuthors = React.createClass({
         }
     },
 
-    setAuthorState: function (event) {
+    handleChange: function (event) {
         var field = event.target.name;
         var value = event.taget.value;
         var author = this.state.author;
@@ -23,7 +23,7 @@ var ManageAuthors = React.createClass({
     render: function () {
         return (
             <AuthorForm author={this.state.author}
-                        onChange={this.setAuthorState}/>
+                        onChange={this.handleChange}/>
         )
     }
 });
