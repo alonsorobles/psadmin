@@ -5,12 +5,13 @@ var Router = require('react-router');
 var IndexRoute = Router.IndexRoute;
 var Route = Router.Route;
 var Redirect = Router.Redirect;
+var About = require('./components/about/aboutPage');
 
 var routes = (
     <Route path="/" component={require('./components/app')}>
         <IndexRoute component={require('./components/homePage')} />
         <Route path="authors" component={require('./components/authors/authorsPage')} />
-        <Route path="about" component={require('./components/about/aboutPage')}/>
+        <Route path="about" component={About.Component} onEnter={About.HandleEnter}/>
         <Redirect from="about-us" to="about" />
         <Redirect from="about/*" to="about" />
         <Redirect from="awthors" to="authors" />

@@ -3,19 +3,20 @@
 var React = require('react');
 
 var About = React.createClass({
-    statics: {
-        willTransitionTo: function (transition, params, query, callback) {
-            if (!confirm('Are you sure you want to read a page that is this boring?')) {
-                transition.abort();
-            } else {
-                callback();
-            }
-        },
-        willTransitionFrom: function (transition) {
-            if (!confirm('Are you sure you want to leave a page that is this exciting?')) {
-                transition.abort();
-            }
-        }
+    propTypes: {
+        route: React.PropTypes.object.isRequired
+    },
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+    componentWillMount: function(){
+        this.context.router.setRouteLeaveHook(
+            this.props.route,
+            this.routerWillLeave
+        )
+    },
+    routerWillLeave: function () {
+        return 'Are you sure you want to leave a page that is this exciting?'
     },
     render: function () {
         return (
@@ -36,4 +37,12 @@ var About = React.createClass({
     }
 });
 
-module.exports = About;
+var HandleEnter = function (location, replaceWith, callback) {
+    if (!confirm('Are you sure you want to read a page that is this boring?')) {
+        replaceWith.abort();
+    } else {
+        callback();
+    }
+};
+
+module.exports = { Component: About, HandleEnter : HandleEnter} ;
