@@ -14,7 +14,8 @@ var AuthorForm = React.createClass({
                            className="form-control"
                            placeholder="First Name"
                            ref="firstName"
-                           value=""/>
+                           value={this.props.author.firstName}
+                           onChange={this.props.onChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="lastName">Last Name</label>
@@ -23,7 +24,8 @@ var AuthorForm = React.createClass({
                            className="form-control"
                            placeholder="Last Name"
                            ref="lastName"
-                           value=""/>
+                           value={this.props.author.lastName}
+                           onChange={this.props.onChange}/>
                 </div>
                 <input type="submit"
                        value="Save"
