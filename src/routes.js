@@ -10,6 +10,7 @@ var routes = (
         <IndexRoute component={require('./components/homePage')} />
         <Route path="authors" component={require('./components/authors/authorsPage')} />
         <Route path="about" component={require('./components/about/aboutPage')}/>
+        <Route path="*" component={require('./components/notFoundPage')}/>
     </Route>
 );
 
